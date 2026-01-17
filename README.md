@@ -1,141 +1,61 @@
-# 🚀 Autonomous Warehouse Management System (AWMS) Simulator
+Autonomous Warehouse Management System (AWMS) Simulator
+📌 Project Overview
+The Autonomous Warehouse Management System (AWMS) is a web-based simulation designed to demonstrate the core logic, pathfinding algorithms, and decision-making capabilities of an autonomous warehouse robot.
+This simulation serves as the software "Digital Twin" for our Final Year Project, acting as a visual proof-of-concept for:
+Path Planning: Avoiding obstacles dynamically.
+Task Scheduling: Managing a First-In-First-Out (FIFO) queue of retrieval tasks.
+Resource Management: Intelligent battery monitoring and auto-charging behaviors.
+📸 Screenshots
+(Place a screenshot of your simulation running here)
+🚀 Key Features
+🤖 Intelligent Navigation
+*A Pathfinding Algorithm:** Visualizes the shortest path from point A to B while actively avoiding user-placed obstacles.
+Dynamic Re-routing: If a path is blocked, the robot calculates a new route instantly.
+🔋 Smart Battery Logic
+Heuristic Energy Protection: The robot calculates energy requirements before accepting a task.
+Auto-Return: If Current_Battery < Estimated_Cost, the robot aborts work and navigates to the charging dock.
+🏭 Dynamic Environment
+Grid Editor: Users can resize the warehouse (Rows/Cols) and place/remove walls or racks in real-time.
+Job Queue: Users can add random jobs. The system ensures variety by rotating between different shelf destinations (e.g., Shelf A -> Shelf B -> Shelf C).
+📊 Real-time Telemetry
+Dashboard: Displays live battery percentage, current operational state (IDLE, MOVING, PICKING), and a scrolling system log.
+🛠️ Tech Stack
+Frontend Framework: React.js (via Vite)
+Language: JavaScript (ES6+)
+Styling: Tailwind CSS
+Icons: Lucide-React
+State Management: React Hooks (useState, useRef, useEffect)
+⚙️ Installation & Setup
+Follow these steps to run the simulation locally on your machine.
+1. Prerequisites
+Ensure you have Node.js (v14 or higher) installed.
+2. Clone the Repository
+git clone [https://github.com/your-username/awms-simulator.git](https://github.com/your-username/awms-simulator.git)
+cd awms-simulator
 
-## 📌 Project Overview
 
-The **Autonomous Warehouse Management System (AWMS) Simulator** is a **React-based interactive simulation** designed to demonstrate the **decision-making, path planning, and resource management logic** of an autonomous warehouse robot.
-
-This simulator acts as a **software Digital Twin** for our **Final Year Project**, showcasing how an autonomous robot operates inside a warehouse environment by handling:
-
-- 📍 Path Planning using the **A\*** Algorithm  
-- 🧠 Task Scheduling with a dynamic job queue  
-- 🔋 Intelligent Battery Monitoring and Auto-Charging  
-
----
-
-## 🚀 Features
-
-### 🧭 A* Pathfinding Algorithm
-- Visualizes the **shortest path** from point A to point B.
-- Dynamically avoids static and user-defined obstacles.
-
-### 🔋 Smart Battery Logic
-- The robot calculates energy requirements **before accepting a task**.
-- If the battery is insufficient to complete:
-  - Pickup → Shelf → Charging Dock  
-- The task is rejected and the robot safely returns to charge.
-
-### 🏗️ Dynamic Warehouse Environment
-- **Grid Editor**
-  - Resize warehouse dimensions in real time.
-  - Add or remove obstacles (walls/racks).
-- **Job Queue**
-  - Add random jobs dynamically.
-  - Shelf destinations rotate to ensure task diversity.
-
-### 📊 Real-time Telemetry
-- Live battery percentage
-- Robot states:
-  - `IDLE`
-  - `MOVING`
-  - `PICKING`
-- System logs for monitoring and debugging
-
----
-
-## 🛠️ Tech Stack
-
-- **Framework:** React.js (Vite)
-- **Language:** JavaScript (ES6+)
-- **Styling:** Tailwind CSS
-- **Icons:** Lucide-React
-
----
-
-## ⚙️ Installation & Setup
-
-### 1️⃣ Prerequisites
-Ensure **Node.js** is installed on your system.
-
-```bash
-node -v
-
----
-
-### 2️⃣ Install Dependencies
-Open the terminal in the project directory and run:
-```bash
+3. Install Dependencies
 npm install
 
----
 
-### 3️⃣ Run the Simulation
-
----
-
-📖 User Guide
-▶️ Start / Stop Simulation
-
-Click START (top-right corner) to activate the robot AI loop.
-
-🧱 Edit Map
-
-Click ADD OBSTACLES from the sidebar.
-
-Click on a grid cell to place an obstacle.
-
-Click again on the same cell to remove it.
-
-Click DONE EDITING to save changes.
-
-📦 Add Jobs
-
-Click ADD RANDOM JOB to simulate incoming warehouse orders.
-
-📐 Resize Grid
-
-Use the + / - buttons in the sidebar to adjust warehouse dimensions dynamically.
-
-🧠 Algorithms Used
-1️⃣ A* (A-Star) Pathfinding Algorithm
-
-The simulation uses the A* algorithm to calculate the shortest path using the cost function:
-
-𝑓
-(
-𝑛
-)
-=
-𝑔
-(
-𝑛
-)
-+
-ℎ
-(
-𝑛
-)
-f(n)=g(n)+h(n)
-
-Where:
-
-g(n) = Cost from the start node to the current node
-
-h(n) = Heuristic estimated cost from the current node to the goal
-
-📏 Manhattan Distance is used as the heuristic since movement is grid-based.
-
-2️⃣ Heuristic Battery Protection Logic
-
-Before executing any task, the robot performs a cost estimation:
-
-ExpectedCost =
-(Distance_To_Pickup + Distance_To_Shelf + Distance_To_Charger)
-× Battery_Rate
+4. Run the Simulation
+Start the local development server:
+npm run dev
 
 
-If:
+Click the local link provided in the terminal (usually http://localhost:5173/) to open the dashboard.
+🧠 Algorithms Explained
+1. A* (A-Star) Pathfinding
+The simulation uses A* to find the most efficient path. It evaluates nodes based on the cost function:
+$$ f(n) = g(n) + h(n) $$
+$g(n)$: The actual cost from the start node to the current node.
+$h(n)$: The heuristic estimated cost from the current node to the goal.
+Implementation: We use Manhattan Distance ($|x_1 - x_2| + |y_1 - y_2|$) because movement is restricted to a grid (up, down, left, right).
+2. Battery Cost Heuristic
+Before moving, the robot estimates the "Energy Cost" of a full mission cycle:
+Cost = (Dist_To_Pickup + Dist_To_Shelf + Dist_To_Charger) * Battery_Drain_Rate
 
-Current_Battery < ExpectedCost + Safety_Buffer
 
-
-➡️ The robot rejects the task and immediately navigates to the charging dock to prevent mission failure.
+If the robot determines it cannot complete the full cycle and return to the charger safely, it prioritizes charging over working.
+📄 License
+This project is developed for educational purposes as part of a Final Year Project curriculum.
