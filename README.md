@@ -1,94 +1,136 @@
-Autonomous Warehouse Management System (AWMS) Simulator
-📌 Project Overview
-The Autonomous Warehouse Management System (AWMS) is a React-based simulation
-designed to demonstrate the core logic, pathfinding algorithms, and decision-making
-capabilities of an autonomous warehouse robot.
-This simulation serves as the software "Digital Twin" for our Final Year Project, showcasing how
-the robot handles:
-1. Path Planning: Avoiding obstacles using the A* Algorithm.
-2. Task Scheduling: Managing a dynamic queue of retrieval tasks.
-3. Resource Management: Intelligent battery monitoring and auto-charging.
-🚀 Features
-*A Pathfinding Algorithm:** visualizes the shortest path from point A to B while actively
-avoiding dynamic obstacles.
-Smart Battery Logic: The robot calculates energy requirements before accepting a task. If
-the battery is too low to complete the full cycle (Pickup -> Shelf -> Charge), it aborts and
-returns to the charging dock.
-Dynamic Environment:
-Grid Editor: Users can increase/decrease warehouse size and place/remove obstacles
-(walls/racks) in real-time.
-Job Queue: Users can add random jobs to the queue. The system ensures variety by
-rotating between different shelf destinations.
-Real-time Telemetry: Dashboard displays live battery status, current state (IDLE, MOVING,
-PICKING), and system logs.
-🛠️Tech Stack
-Framework: React.js (Vite)
-Language: JavaScript (ES6+)
-Styling: Tailwind CSS
-Icons: Lucide-React
-⚙️ Installation & Setup
-Follow these steps to run the simulation locally on VS Code:
-1. Prerequisites
-Ensure you have Node.js installed.
+# 🚀 Autonomous Warehouse Management System (AWMS) Simulator
 
-2. Installation
+## 📌 Project Overview
 
-Open your terminal in the project folder and run:
+The **Autonomous Warehouse Management System (AWMS) Simulator** is a **React-based interactive simulation** designed to demonstrate the **decision-making, path planning, and resource management logic** of an autonomous warehouse robot.
 
+This simulator acts as a **software Digital Twin** for our **Final Year Project**, showcasing how an autonomous robot operates inside a warehouse environment by handling:
+
+- 📍 Path Planning using the **A\*** Algorithm  
+- 🧠 Task Scheduling with a dynamic job queue  
+- 🔋 Intelligent Battery Monitoring and Auto-Charging  
+
+---
+
+## 🚀 Features
+
+### 🧭 A* Pathfinding Algorithm
+- Visualizes the **shortest path** from point A to point B.
+- Dynamically avoids static and user-defined obstacles.
+
+### 🔋 Smart Battery Logic
+- The robot calculates energy requirements **before accepting a task**.
+- If the battery is insufficient to complete:
+  - Pickup → Shelf → Charging Dock  
+- The task is rejected and the robot safely returns to charge.
+
+### 🏗️ Dynamic Warehouse Environment
+- **Grid Editor**
+  - Resize warehouse dimensions in real time.
+  - Add or remove obstacles (walls/racks).
+- **Job Queue**
+  - Add random jobs dynamically.
+  - Shelf destinations rotate to ensure task diversity.
+
+### 📊 Real-time Telemetry
+- Live battery percentage
+- Robot states:
+  - `IDLE`
+  - `MOVING`
+  - `PICKING`
+- System logs for monitoring and debugging
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework:** React.js (Vite)
+- **Language:** JavaScript (ES6+)
+- **Styling:** Tailwind CSS
+- **Icons:** Lucide-React
+
+---
+
+## ⚙️ Installation & Setup
+
+### 1️⃣ Prerequisites
+Ensure **Node.js** is installed on your system.
+
+```bash
+node -v
+
+### 2️⃣ Install Dependencies
+Open the terminal in the project directory and run:
+```bash
 npm install
 
+### 3️⃣ Run the Simulation
 
-3. Running the Simulation
-
-Start the development server:
-
-npm run dev
-
-
-Click the link provided in the terminal (usually http://localhost:5173/).
-
-The simulation will open in your default browser.
 
 📖 User Guide
+▶️ Start / Stop Simulation
 
-Start/Stop: Click the START button in the top right to enable the robot's AI loop.
+Click START (top-right corner) to activate the robot AI loop.
 
-Edit Map:
+🧱 Edit Map
 
-Click ADD OBSTACLES in the sidebar.
+Click ADD OBSTACLES from the sidebar.
 
-Click on any empty grid cell to place a wall/obstacle.
+Click on a grid cell to place an obstacle.
 
-Click again to remove it.
+Click again on the same cell to remove it.
 
-Click DONE EDITING to save.
+Click DONE EDITING to save changes.
 
-Add Jobs: Click ADD RANDOM JOB to simulate a new order coming into the warehouse system.
+📦 Add Jobs
 
-Resize Grid: Use the + and - buttons in the sidebar to change the warehouse dimensions.
+Click ADD RANDOM JOB to simulate incoming warehouse orders.
+
+📐 Resize Grid
+
+Use the + / - buttons in the sidebar to adjust warehouse dimensions dynamically.
 
 🧠 Algorithms Used
+1️⃣ A* (A-Star) Pathfinding Algorithm
 
-1. A* (A-Star) Pathfinding
+The simulation uses the A* algorithm to calculate the shortest path using the cost function:
 
-The simulation uses the A* algorithm to find the shortest path. It evaluates nodes based on the cost function:
+𝑓
+(
+𝑛
+)
+=
+𝑔
+(
+𝑛
+)
++
+ℎ
+(
+𝑛
+)
+f(n)=g(n)+h(n)
+
+Where:
+
+g(n) = Cost from the start node to the current node
+
+h(n) = Heuristic estimated cost from the current node to the goal
+
+📏 Manhattan Distance is used as the heuristic since movement is grid-based.
+
+2️⃣ Heuristic Battery Protection Logic
+
+Before executing any task, the robot performs a cost estimation:
+
+ExpectedCost =
+(Distance_To_Pickup + Distance_To_Shelf + Distance_To_Charger)
+× Battery_Rate
 
 
-$$f(n) = g(n) + h(n)$$
+If:
 
-g(n): The cost from the start node to the current node.
-
-h(n): The heuristic estimated cost from the current node to the goal (we use Manhattan Distance since movement is grid-based).
-
-2. Heuristic Battery Protection
-
-Before starting a mission, the robot performs a "Cost Estimate":
-
-ExpectedCost = (Distance_To_Pickup + Distance_To_Shelf + Distance_To_Charger) * Battery_Rate
+Current_Battery < ExpectedCost + Safety_Buffer
 
 
-If Current_Battery < ExpectedCost + Safety_Buffer, the robot refuses the task and navigates to the charger immediately.
-
-📄 License
-
-This project is developed for educational purposes as part of the Final Year Project curriculum.
+➡️ The robot rejects the task and immediately navigates to the charging dock to prevent mission failure.
