@@ -59,13 +59,18 @@ Ensure **Node.js** is installed on your system.
 ```bash
 node -v
 
+---
+
 ### 2️⃣ Install Dependencies
 Open the terminal in the project directory and run:
 ```bash
 npm install
 
+---
+
 ### 3️⃣ Run the Simulation
 
+---
 
 📖 User Guide
 ▶️ Start / Stop Simulation
