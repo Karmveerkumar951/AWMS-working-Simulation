@@ -12,12 +12,6 @@ This simulation serves as the software **Digital Twin** for our Final Year Proje
 
 ---
 
-## 📸 Screenshots
-
-> *(Place a screenshot of your simulation running here)*
-
----
-
 ## 🚀 Key Features
 
 ### 🤖 Intelligent Navigation
